@@ -1,2 +1,8 @@
 fastapi[standard]
 python-multipart
+google-genai
+langchain 
+langgraph 
+langsmith 
+google-generativeai 
+docker
