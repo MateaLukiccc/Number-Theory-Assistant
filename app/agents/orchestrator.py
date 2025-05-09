@@ -1,5 +1,5 @@
 import json
-from typing import Dict, Any, List, TypedDict
+from typing import List, TypedDict
 from langgraph.graph import StateGraph
 from app.tools.llm import call_gemini
 from langsmith import traceable
@@ -15,16 +15,6 @@ class AgentState(TypedDict, total=False):
 
 @traceable(name="OrchestratorAgent.orchestrate")
 def orchestrator_node(state: AgentState) -> AgentState:
-    """
-    Calls the LLM to decide which sub-agents to invoke.
-    Populates state with:
-      - orchestrator_plan: full JSON response
-      - thoughts
-      - next_agents
-      - should_execute_code
-      - final_answer
-    """
-    #challenge = state["challenge"]
     prompt = return_orchestrator_prompt(state["challenge"])
     raw = call_gemini(prompt)
     print("[Orchestrator LLM] Raw response:", raw)
@@ -70,17 +60,12 @@ def decide_next_step(state: AgentState) -> str:
 
 
 workflow = StateGraph(AgentState)
-
-# Register nodes
 workflow.add_node("Orchestrate", orchestrator_node)
 workflow.add_node("Planning", planning_node)
 workflow.add_node("ExecuteCode", execute_code_node)
 workflow.add_node("Final", final_node)
 
-# Entry point
 workflow.set_entry_point("Orchestrate")
-
-# Conditional transitions out of the orchestrator
 workflow.add_conditional_edges(
     "Orchestrate",
     decide_next_step,
