@@ -5,7 +5,6 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-
 def call_gemini(prompt: str, model_name: str = "gemini-2.0-flash") -> str:
     client = genai.Client(api_key=os.getenv('GEMINI_API_KEY'))
     response = client.models.generate_content(

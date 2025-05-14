@@ -6,3 +6,6 @@ langgraph
 langsmith 
 google-generativeai 
 docker
+langchain-google-genai
+langfuse
+aiohttp

@@ -2,7 +2,7 @@ import aiohttp
 import asyncio
 from typing import Dict
 from langchain_core.tools import tool
-from core.states import AnalysisPlan
+from app.core.states import AnalysisPlan
 from dotenv import load_dotenv
 load_dotenv()
 import os
@@ -10,7 +10,7 @@ import os
 @tool("analyze_code_with_llm")
 async def analyze_code_with_llm(code: str) -> AnalysisPlan:
     """Use LLM to identify important fragments and search terms"""
-    from core.llm import get_llm
+    from app.core.llm import get_llm
     from langchain_core.prompts import ChatPromptTemplate
     
     prompt = ChatPromptTemplate.from_messages([

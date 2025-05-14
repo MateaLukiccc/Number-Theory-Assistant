@@ -16,7 +16,7 @@ class FinalReport(BaseModel):
     key_insight: str
     steps: List[str]
 
-class AgentState(TypedDict):
+class WebAgentState(TypedDict):
     messages: Annotated[List[BaseMessage], add_messages]
     code_to_analyze: Optional[str]
     analysis_plan: Optional[AnalysisPlan]

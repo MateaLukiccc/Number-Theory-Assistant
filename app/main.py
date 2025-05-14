@@ -4,7 +4,6 @@ from app.agents.orchestrator import workflow
 
 app = FastAPI()
 
-
 @app.post("/upload_chall")
 async def get_challenge_file(file: UploadFile):
     if not file.filename.endswith(".py"):
@@ -23,6 +22,7 @@ async def get_challenge_file(file: UploadFile):
         "next_agents":           final_state.get("next_agents"),
         "final_answer":          final_state.get("final_answer"),
         "error":                 final_state.get("error"),
+        "search_results":        final_state.get("search_results"),
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
