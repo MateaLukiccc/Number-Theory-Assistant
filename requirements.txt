@@ -9,3 +9,4 @@ docker
 langchain-google-genai
 langfuse
 aiohttp
+chromadb
